@@ -1,4 +1,3 @@
-````md
 # DevSphere
 
 > 面向开发者的社区平台  
@@ -96,7 +95,6 @@ devsphere/
 ├── README.md
 ├── package.json
 └── vite.config.js
-````
 
 ---
 
