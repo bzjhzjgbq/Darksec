@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 import Button from "../ui/Button";
 import PageContainer from "./PageContainer";
@@ -10,9 +11,44 @@ const navItems = [
   { to: "/user", label: "用户中心" },
 ];
 
+const navItemClass =
+  "relative rounded-2xl px-4 py-2.5 text-sm font-medium transition duration-300";
+
+function NavigationLink({ item, mobile = false }) {
+  return (
+    <NavLink
+      to={item.to}
+      className={({ isActive }) =>
+        `${mobile ? "whitespace-nowrap " : ""}${navItemClass} ${
+          isActive ? "text-white" : "text-slate-600 hover:text-slate-900"
+        }`
+      }
+    >
+      {({ isActive }) => (
+        <>
+          {isActive ? (
+            <motion.span
+              layoutId={mobile ? "mobile-nav-pill" : "nav-pill"}
+              className="absolute inset-0 rounded-2xl bg-slate-950 shadow-[0_1px_2px_rgba(15,23,42,0.08)]"
+              transition={{ type: "spring", stiffness: 360, damping: 30 }}
+            />
+          ) : null}
+          <motion.span
+            className="absolute inset-0 rounded-2xl bg-slate-100 opacity-0"
+            whileHover={{ opacity: isActive ? 0 : 1 }}
+            transition={{ duration: 0.2 }}
+          />
+          <span className="relative z-10">{item.label}</span>
+        </>
+      )}
+    </NavLink>
+  );
+}
+
 export default function MainLayout() {
   const location = useLocation();
   const isHome = location.pathname === "/";
+  const isAuthPage = location.pathname === "/login" || location.pathname === "/register";
 
   return (
     <div className="min-h-screen">
@@ -30,7 +66,7 @@ export default function MainLayout() {
             </div>
             <div className="min-w-0">
               <p className="truncate text-[15px] font-semibold tracking-[-0.02em] text-slate-950">
-                DevSphere
+                DarkSec
               </p>
               <p className="truncate text-[11px] uppercase tracking-[0.24em] text-slate-500">
                 Developer Community
@@ -40,27 +76,13 @@ export default function MainLayout() {
 
           <nav className="hidden items-center gap-1 rounded-[20px] border border-slate-200/80 bg-white/88 p-1.5 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_10px_24px_rgba(15,23,42,0.04)] md:flex">
             {navItems.map((item) => (
-              <NavLink
-                key={item.to}
-                to={item.to}
-                className={({ isActive }) =>
-                  `rounded-2xl px-4 py-2.5 text-sm font-medium transition duration-200 ${
-                    isActive
-                      ? "bg-slate-950 text-white shadow-[0_1px_2px_rgba(15,23,42,0.08)]"
-                      : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
-                  }`
-                }
-              >
-                {item.label}
-              </NavLink>
+              <NavigationLink key={item.to} item={item} />
             ))}
           </nav>
 
           <div className="flex items-center gap-2">
             <NavLink to="/login" className="hidden sm:block">
-              <Button variant="secondary">
-                登录
-              </Button>
+              <Button variant="secondary">登录</Button>
             </NavLink>
             <NavLink to="/register">
               <Button>注册 / 入驻</Button>
@@ -71,29 +93,23 @@ export default function MainLayout() {
         <PageContainer className="pb-3 md:hidden">
           <nav className="flex gap-2 overflow-x-auto rounded-[20px] border border-slate-200/80 bg-white/88 p-1.5 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_10px_24px_rgba(15,23,42,0.04)]">
             {navItems.map((item) => (
-              <NavLink
-                key={item.to}
-                to={item.to}
-                className={({ isActive }) =>
-                  `whitespace-nowrap rounded-2xl px-4 py-2.5 text-sm font-medium transition duration-200 ${
-                    isActive
-                      ? "bg-slate-950 text-white shadow-[0_1px_2px_rgba(15,23,42,0.08)]"
-                      : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
-                  }`
-                }
-              >
-                {item.label}
-              </NavLink>
+              <NavigationLink key={item.to} item={item} mobile />
             ))}
           </nav>
         </PageContainer>
       </header>
 
-      <main className={`pb-14 ${isHome ? "pt-5 sm:pt-6" : "pt-6 sm:pt-8"}`}>
+      <main
+        className={
+          isAuthPage
+            ? "flex min-h-[calc(100vh-76px)] items-center pb-12 pt-8 sm:pb-16 sm:pt-10"
+            : `pb-14 ${isHome ? "pt-5 sm:pt-6" : "pt-6 sm:pt-8"}`
+        }
+      >
         <Outlet />
       </main>
 
-      <SiteFooter />
+      {isAuthPage ? null : <SiteFooter />}
     </div>
   );
 }

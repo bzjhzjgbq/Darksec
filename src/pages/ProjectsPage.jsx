@@ -1,11 +1,13 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import PageContainer from "../components/layout/PageContainer";
+import PageReveal from "../components/motion/PageReveal";
+import Reveal from "../components/motion/Reveal";
 import ProjectFilterBar from "../components/project/ProjectFilterBar";
 import ProjectListCard from "../components/project/ProjectListCard";
 import ProjectSidebarList from "../components/project/ProjectSidebarList";
-import Button from "../components/ui/Button";
 import Badge from "../components/ui/Badge";
+import Button from "../components/ui/Button";
 import EmptyState from "../components/ui/EmptyState";
 import {
   featuredProjects,
@@ -75,7 +77,7 @@ export default function ProjectsPage() {
 
   const summary = [
     { label: "社区项目", value: `${projects.length}+`, note: "持续收录真实开发作品" },
-    { label: "本周热门", value: `${featuredProjects.length}`, note: "首页高热度推荐项目" },
+    { label: "本周热门", value: `${featuredProjects.length}`, note: "首页高热推荐项目" },
     { label: "筛选维度", value: `${projectCategories.length - 1}`, note: "分类、状态与排序组合浏览" },
   ];
 
@@ -83,9 +85,9 @@ export default function ProjectsPage() {
   const activeAuthors = useMemo(() => buildActiveAuthors(projects), []);
 
   return (
-    <div className="space-y-6">
+    <PageReveal className="space-y-6">
       <PageContainer>
-        <section className="surface-strong relative overflow-hidden px-6 py-7 sm:px-8 lg:px-10 lg:py-9">
+        <Reveal as="section" className="surface-strong relative overflow-hidden px-6 py-7 sm:px-8 lg:px-10 lg:py-9">
           <div className="pointer-events-none absolute inset-0">
             <div className="absolute -right-16 top-0 h-56 w-56 rounded-full bg-emerald-100/70 blur-3xl" />
             <div className="absolute left-4 top-8 h-40 w-40 rounded-full bg-sky-100/45 blur-3xl" />
@@ -103,8 +105,7 @@ export default function ProjectsPage() {
               </h1>
 
               <p className="mt-5 max-w-2xl text-[15px] leading-8 text-slate-600 sm:text-base">
-                这里是 DevSphere 当前最核心的内容版块。我们把项目标题、作者、发布时间、技术栈和互动数据放在更清晰的位置，
-                让浏览体验更像成熟社区产品，而不是简单的卡片堆叠。
+                这里是 DarkSec 当前最核心的内容板块。我们把项目标题、作者、发布时间、技术栈和互动数据放在更清晰的位置，让浏览体验更像成熟社区产品，而不是简单的卡片堆叠。
               </p>
 
               <div className="mt-7 flex flex-wrap gap-3">
@@ -134,25 +135,27 @@ export default function ProjectsPage() {
               ))}
             </div>
           </div>
-        </section>
+        </Reveal>
       </PageContainer>
 
       <PageContainer className="space-y-5">
-        <ProjectFilterBar
-          search={search}
-          onSearchChange={setSearch}
-          categories={projectCategories}
-          category={category}
-          onCategoryChange={setCategory}
-          statuses={projectStatuses}
-          status={status}
-          onStatusChange={setStatus}
-          sortBy={sortBy}
-          onSortChange={setSortBy}
-          sortOptions={sortOptions}
-        />
+        <Reveal>
+          <ProjectFilterBar
+            search={search}
+            onSearchChange={setSearch}
+            categories={projectCategories}
+            category={category}
+            onCategoryChange={setCategory}
+            statuses={projectStatuses}
+            status={status}
+            onStatusChange={setStatus}
+            sortBy={sortBy}
+            onSortChange={setSortBy}
+            sortOptions={sortOptions}
+          />
+        </Reveal>
 
-        <div className="surface flex flex-col gap-4 px-5 py-4 md:flex-row md:items-center md:justify-between">
+        <Reveal className="surface flex flex-col gap-4 px-5 py-4 md:flex-row md:items-center md:justify-between">
           <div>
             <h2 className="text-[22px] font-semibold tracking-[-0.03em] text-slate-950">
               项目列表
@@ -167,10 +170,10 @@ export default function ProjectsPage() {
             <Badge>支持搜索 / 分类 / 状态 / 排序</Badge>
             <Badge>响应式社区页面</Badge>
           </div>
-        </div>
+        </Reveal>
 
         <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_320px]">
-          <div className="space-y-4">
+          <Reveal className="space-y-4">
             {filteredProjects.length ? (
               filteredProjects.map((project) => <ProjectListCard key={project.id} project={project} />)
             ) : (
@@ -180,17 +183,17 @@ export default function ProjectsPage() {
                 description="试试清空关键词、切换分类或状态，热门推荐和标签仍然可以帮助你继续浏览。"
               />
             )}
-          </div>
+          </Reveal>
 
-          <div className="space-y-4 xl:sticky xl:top-24 xl:self-start">
+          <Reveal className="space-y-4 xl:sticky xl:top-24 xl:self-start" delay={0.08}>
             <ProjectSidebarList
               projects={featuredProjects}
               tags={popularTags}
               authors={activeAuthors}
             />
-          </div>
+          </Reveal>
         </div>
       </PageContainer>
-    </div>
+    </PageReveal>
   );
 }

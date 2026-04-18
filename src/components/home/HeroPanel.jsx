@@ -1,9 +1,12 @@
+import { motion, useReducedMotion } from "framer-motion";
 import { Link } from "react-router-dom";
-import Button from "../ui/Button";
 import Badge from "../ui/Badge";
+import Button from "../ui/Button";
 import Card from "../ui/Card";
 
 export default function HeroPanel({ stats, pulseCards }) {
+  const reduceMotion = useReducedMotion();
+
   return (
     <Card strong className="relative overflow-hidden px-6 py-7 sm:px-8 lg:px-10 lg:py-9">
       <div className="pointer-events-none absolute inset-0">
@@ -11,22 +14,47 @@ export default function HeroPanel({ stats, pulseCards }) {
         <div className="absolute left-0 top-8 h-40 w-40 rounded-full bg-sky-100/50 blur-3xl" />
       </div>
 
-      <div className="relative grid gap-8 xl:grid-cols-[minmax(0,1.1fr)_380px] xl:items-start">
+      <motion.div
+        initial={reduceMotion ? { opacity: 1 } : { opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+        className="relative grid gap-8 xl:grid-cols-[minmax(0,1.1fr)_380px] xl:items-start"
+      >
         <div className="max-w-4xl">
-          <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200/70 bg-emerald-50/80 px-3 py-1.5 text-xs font-medium text-emerald-700 shadow-sm">
+          <motion.div
+            initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, delay: 0.04, ease: [0.22, 1, 0.36, 1] }}
+            className="inline-flex items-center gap-2 rounded-full border border-emerald-200/70 bg-emerald-50/80 px-3 py-1.5 text-xs font-medium text-emerald-700 shadow-sm"
+          >
             <span className="h-2 w-2 rounded-full bg-emerald-500" />
             社区持续活跃中
-          </div>
+          </motion.div>
 
-          <h1 className="mt-5 max-w-4xl text-[42px] font-semibold leading-[1.02] tracking-[-0.06em] text-slate-950 sm:text-[54px] lg:text-[64px]">
+          <motion.h1
+            initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-5 max-w-4xl text-[42px] font-semibold leading-[1.02] tracking-[-0.06em] text-slate-950 sm:text-[54px] lg:text-[64px]"
+          >
             连接项目、文章与开发者的现代社区首页
-          </h1>
+          </motion.h1>
 
-          <p className="mt-5 max-w-2xl text-[16px] leading-8 text-slate-600 sm:text-[17px]">
-            DevSphere 让项目展示、技术沉淀与创作者表达发生在同一个清晰、可信、易于持续浏览的产品环境里。
-          </p>
+          <motion.p
+            initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-5 max-w-2xl text-[16px] leading-8 text-slate-600 sm:text-[17px]"
+          >
+            DarkSec 让项目展示、技术沉淀与创作者表达发生在同一个清晰、可信、易于持续浏览的产品环境里。
+          </motion.p>
 
-          <div className="mt-7 flex flex-wrap gap-3">
+          <motion.div
+            initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-7 flex flex-wrap gap-3"
+          >
             <Link to="/projects">
               <Button className="px-5 py-3 shadow-sm">浏览项目社区</Button>
             </Link>
@@ -35,12 +63,19 @@ export default function HeroPanel({ stats, pulseCards }) {
                 发布项目
               </Button>
             </Link>
-          </div>
+          </motion.div>
 
           <div className="mt-8 grid gap-3 sm:grid-cols-3">
-            {stats.map((stat) => (
-              <div
+            {stats.map((stat, index) => (
+              <motion.div
                 key={stat.label}
+                initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 0.45,
+                  delay: 0.24 + index * 0.05,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
                 className="rounded-2xl border border-slate-200 bg-white/85 px-4 py-4 shadow-[0_8px_20px_rgba(15,23,42,0.04)] backdrop-blur-sm transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_14px_30px_rgba(15,23,42,0.08)]"
               >
                 <p className="text-[30px] font-semibold tracking-[-0.05em] text-slate-950">
@@ -48,7 +83,7 @@ export default function HeroPanel({ stats, pulseCards }) {
                 </p>
                 <p className="mt-1 text-sm font-medium text-slate-700">{stat.label}</p>
                 <p className="mt-2 text-xs leading-5 text-slate-500">{stat.detail}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -69,8 +104,10 @@ export default function HeroPanel({ stats, pulseCards }) {
 
             <div className="mt-5 space-y-4">
               {pulseCards.map((card) => (
-                <div
+                <motion.div
                   key={card.title}
+                  whileHover={reduceMotion ? undefined : { y: -3 }}
+                  transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
                   className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm transition duration-200 hover:bg-white/[0.08]"
                 >
                   <div className={`h-1.5 w-16 rounded-full bg-gradient-to-r ${card.tone}`} />
@@ -79,16 +116,16 @@ export default function HeroPanel({ stats, pulseCards }) {
                     {card.value}
                   </p>
                   <p className="mt-1 text-xs text-slate-400">{card.meta}</p>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-1">
             <Card className="p-5">
-              <p className="eyebrow">Why DevSphere</p>
+              <p className="eyebrow">Why DarkSec</p>
               <p className="mt-3 text-lg font-semibold tracking-[-0.03em] text-slate-950">
-                像产品一样组织内容，像社区一样连接人。
+                像产品一样组织内容，像社区一样连接人与作品。
               </p>
               <p className="mt-3 text-sm leading-7 text-slate-600">
                 让每一条项目更新、每一篇文章和每一位作者都更容易被发现。
@@ -98,14 +135,14 @@ export default function HeroPanel({ stats, pulseCards }) {
             <Card className="p-5">
               <p className="text-sm text-slate-500">本周高关注标签</p>
               <div className="mt-3 flex flex-wrap gap-2">
-                {["AI 工具", "设计系统", "开源组件", "协作工具"].map((tag) => (
+                {["AI Tools", "Design Systems", "Open Source UI", "Collab Tools"].map((tag) => (
                   <Badge key={tag}>{tag}</Badge>
                 ))}
               </div>
             </Card>
           </div>
         </div>
-      </div>
+      </motion.div>
     </Card>
   );
 }

@@ -39,7 +39,7 @@ export const currentUserProfile = {
   avatar:
     "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=300&q=80",
   location: "Shanghai / Remote",
-  website: "devsphere.example/lin-yue",
+  website: "darksec.example/lin-yue",
   tags: ["AI 产品", "协作工具", "设计工程", "全栈开发"],
   stats: [
     { label: "发布项目", value: "12" },

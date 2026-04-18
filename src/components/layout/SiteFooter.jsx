@@ -51,18 +51,18 @@ export default function SiteFooter() {
                 </div>
                 <div>
                   <p className="text-base font-semibold tracking-[-0.02em] text-slate-950">
-                    DevSphere
+                    DarkSec
                   </p>
                   <p className="text-sm text-slate-500">Thoughtful developer community platform</p>
                 </div>
               </div>
 
               <h3 className="mt-6 text-[26px] font-semibold tracking-[-0.04em] text-slate-950 sm:text-[30px]">
-                为项目、文章与开发者关系建立而设计的社区首页。
+                为项目、文章与开发者关系而设计的社区首页。
               </h3>
 
               <p className="mt-4 max-w-xl text-[15px] leading-7 text-slate-600">
-                DevSphere 关注的不只是内容展示，更是开发者如何通过项目、文章与社区互动持续建立长期价值。
+                DarkSec 关注的不只是内容展示，更是开发者如何通过项目、文章与社区互动持续建立长期价值。
               </p>
 
               <div className="mt-6 flex flex-wrap gap-2 text-sm text-slate-500">
@@ -94,7 +94,7 @@ export default function SiteFooter() {
           </div>
 
           <div className="mt-8 flex flex-col gap-3 border-t border-slate-100 pt-5 text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between">
-            <p>© 2026 DevSphere. Built for thoughtful developer communities.</p>
+            <p>© 2026 DarkSec. Built for thoughtful developer communities.</p>
             <div className="flex items-center gap-4">
               <span>Made with React</span>
               <span>Vite</span>

@@ -2,7 +2,7 @@ import Badge from "../ui/Badge";
 
 export default function ArticleListCard({ article }) {
   return (
-    <article className="surface interactive-surface p-5 sm:p-6">
+    <article className="group surface interactive-surface p-5 sm:p-6">
       <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500">
         <Badge>{article.tag}</Badge>
         <span>{article.category}</span>

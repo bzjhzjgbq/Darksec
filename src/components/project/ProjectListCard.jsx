@@ -65,7 +65,7 @@ export default function ProjectListCard({ project }) {
           <img
             src={project.cover}
             alt={project.name}
-            className="h-44 w-full rounded-[22px] border border-slate-200 object-cover object-center shadow-[0_12px_28px_rgba(15,23,42,0.06)]"
+            className="card-media h-44 w-full rounded-[22px] border border-slate-200 object-cover object-center shadow-[0_12px_28px_rgba(15,23,42,0.06)]"
           />
 
           <div className="mt-4 grid gap-2">

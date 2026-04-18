@@ -79,6 +79,22 @@ textarea {
     @apply transition duration-200 hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-[0_1px_2px_rgba(15,23,42,0.04),0_20px_46px_rgba(15,23,42,0.08)];
   }
 
+  .card-motion {
+    @apply transition-[border-color,box-shadow,transform] duration-300 hover:border-slate-300 hover:shadow-[0_1px_2px_rgba(15,23,42,0.05),0_22px_52px_rgba(15,23,42,0.09)];
+  }
+
+  .button-animated {
+    transition-property: transform, box-shadow, border-color, background-position, background-color, color;
+  }
+
+  .card-media {
+    @apply transition-transform duration-500 ease-out will-change-transform;
+  }
+
+  .group:hover .card-media {
+    transform: scale(1.035);
+  }
+
   .control-shell {
     @apply rounded-2xl border border-slate-200/90 bg-white/92 shadow-[0_1px_2px_rgba(15,23,42,0.03),0_8px_24px_rgba(15,23,42,0.04)];
   }
