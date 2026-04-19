@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 import ActiveUserList from "../components/home/ActiveUserList";
-import FeaturedArticleList from "../components/home/FeaturedArticleList";
-import FeaturedProjectGrid from "../components/home/FeaturedProjectGrid";
 import HeroPanel from "../components/home/HeroPanel";
 import PageContainer from "../components/layout/PageContainer";
 import PageReveal from "../components/motion/PageReveal";
 import Reveal from "../components/motion/Reveal";
+import Badge from "../components/ui/Badge";
 import Button from "../components/ui/Button";
+import Card from "../components/ui/Card";
 import SectionHeader from "../components/ui/SectionHeader";
 import { featuredProjects } from "../data/mockProjects";
 
@@ -37,39 +37,20 @@ const pulseCards = [
   },
 ];
 
-const homeArticles = [
+const articlePreviews = [
   {
     id: "home-article-1",
     title: "设计系统如何在开发者社区增长过程中保持可维护",
-    excerpt:
-      "从视觉和交互层最容易失控的部分切入，给出一条团队真正能持续执行的演进路径。",
     author: "Aster Chen",
-    role: "Frontend Engineer",
-    readTime: "8 分钟",
     tag: "设计系统",
     publishedAt: "2026-04-12",
   },
   {
     id: "home-article-2",
     title: "独立开发者如何打造能吸引早期用户的公开项目页",
-    excerpt:
-      "项目页不只是展示窗口，更是帮助用户理解问题、理解作者和理解产品方向的关键界面。",
     author: "Lin Yue",
-    role: "Full-stack Developer",
-    readTime: "6 分钟",
     tag: "项目增长",
     publishedAt: "2026-04-10",
-  },
-  {
-    id: "home-article-3",
-    title: "为什么在开发者社区里，信息层级比视觉炫技更重要",
-    excerpt:
-      "从 GitHub、Linear 和 Notion 的表达方式里提取规律，理解内容平台为什么更需要克制与秩序。",
-    author: "Serein",
-    role: "AI Product Builder",
-    readTime: "10 分钟",
-    tag: "内容设计",
-    publishedAt: "2026-04-08",
   },
 ];
 
@@ -106,6 +87,24 @@ const activeUsers = [
   },
 ];
 
+function PreviewPanel({ eyebrow, title, description, action, children }) {
+  return (
+    <Card className="p-6">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+        <div className="max-w-md">
+          <p className="eyebrow">{eyebrow}</p>
+          <h3 className="mt-2 text-[24px] font-semibold tracking-[-0.04em] text-slate-950">
+            {title}
+          </h3>
+          <p className="mt-3 text-sm leading-7 text-slate-600">{description}</p>
+        </div>
+        <div className="shrink-0">{action}</div>
+      </div>
+      <div className="mt-5">{children}</div>
+    </Card>
+  );
+}
+
 export default function HomePage() {
   return (
     <PageReveal className="space-y-10 pb-2">
@@ -114,44 +113,76 @@ export default function HomePage() {
       </PageContainer>
 
       <PageContainer className="space-y-10">
-        <Reveal as="section" className="space-y-6">
-          <SectionHeader
-            eyebrow="Trending Projects"
-            title="热门项目"
-            description="把最值得浏览的项目放在首页核心位置，让内容发现和社区热度自然连接起来。"
-            action={
-              <Link to="/projects">
-                <Button variant="secondary">查看全部项目</Button>
-              </Link>
-            }
-          />
-          <FeaturedProjectGrid projects={featuredProjects.slice(0, 3)} />
-        </Reveal>
-
-        <section className="grid gap-8 xl:grid-cols-[minmax(0,1fr)_360px]">
-          <Reveal className="space-y-6">
-            <SectionHeader
-              eyebrow="Featured Articles"
-              title="精选文章"
-              description="首页不只展示项目，也承载更深入的阅读内容，让平台更像真实运转中的开发者社区。"
+        <Reveal as="section">
+          <div className="grid gap-6 xl:grid-cols-2">
+            <PreviewPanel
+              eyebrow="Projects"
+              title="项目入口"
+              description="首页只保留轻量预览，帮助你快速进入项目频道，详细内容交给项目页承载。"
               action={
-                <Link to="/articles">
-                  <Button variant="secondary">进入文章中心</Button>
+                <Link to="/projects">
+                  <Button variant="secondary">查看全部项目</Button>
                 </Link>
               }
-            />
-            <FeaturedArticleList articles={homeArticles} />
-          </Reveal>
+            >
+              <div className="space-y-3">
+                {featuredProjects.slice(0, 2).map((project) => (
+                  <Link
+                    key={project.id}
+                    to={`/projects/${project.id}`}
+                    className="block rounded-2xl border border-slate-200 bg-slate-50/80 px-4 py-4 transition duration-200 hover:border-slate-300 hover:bg-white"
+                  >
+                    <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500">
+                      <Badge>{project.category}</Badge>
+                      <span>{project.status}</span>
+                    </div>
+                    <p className="mt-3 text-sm font-medium text-slate-900">{project.name}</p>
+                    <p className="mt-2 line-clamp-2 text-sm leading-6 text-slate-600">
+                      {project.summary}
+                    </p>
+                  </Link>
+                ))}
+              </div>
+            </PreviewPanel>
 
-          <Reveal className="space-y-6" delay={0.08}>
-            <SectionHeader
-              eyebrow="Active Developers"
-              title="活跃开发者"
-              description="把持续输出的开发者放到首页，能让平台更有温度，也更像真实发生交流的社区。"
-            />
-            <ActiveUserList users={activeUsers} />
-          </Reveal>
-        </section>
+            <PreviewPanel
+              eyebrow="Articles"
+              title="文章入口"
+              description="首页提供少量阅读预览，方便进入文章中心继续浏览系统化内容。"
+              action={
+                <Link to="/articles">
+                  <Button variant="secondary">查看全部文章</Button>
+                </Link>
+              }
+            >
+              <div className="space-y-3">
+                {articlePreviews.map((article) => (
+                  <Link
+                    key={article.id}
+                    to="/articles"
+                    className="block rounded-2xl border border-slate-200 bg-slate-50/80 px-4 py-4 transition duration-200 hover:border-slate-300 hover:bg-white"
+                  >
+                    <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500">
+                      <Badge>{article.tag}</Badge>
+                      <span>{article.publishedAt}</span>
+                    </div>
+                    <p className="mt-3 text-sm font-medium text-slate-900">{article.title}</p>
+                    <p className="mt-2 text-sm text-slate-500">作者：{article.author}</p>
+                  </Link>
+                ))}
+              </div>
+            </PreviewPanel>
+          </div>
+        </Reveal>
+
+        <Reveal as="section" className="space-y-6" delay={0.06}>
+          <SectionHeader
+            eyebrow="Active Developers"
+            title="活跃开发者"
+            description="把持续输出的开发者放到首页，能让平台更有温度，也更像真实发生交流的社区。"
+          />
+          <ActiveUserList users={activeUsers} />
+        </Reveal>
       </PageContainer>
     </PageReveal>
   );

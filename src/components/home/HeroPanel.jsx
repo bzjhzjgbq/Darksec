@@ -4,6 +4,19 @@ import Badge from "../ui/Badge";
 import Button from "../ui/Button";
 import Card from "../ui/Card";
 
+const valuePoints = [
+  {
+    title: "更快判断项目价值",
+    description: "用清晰的项目卡片、技术信息和互动反馈，降低筛选成本。",
+  },
+  {
+    title: "更自然进入深度内容",
+    description: "项目、文章与开发者信息彼此连通，浏览路径更顺滑。",
+  },
+];
+
+const hotTags = ["AI 工具", "设计系统", "开源组件", "协作工具"];
+
 export default function HeroPanel({ stats, pulseCards }) {
   const reduceMotion = useReducedMotion();
 
@@ -88,58 +101,65 @@ export default function HeroPanel({ stats, pulseCards }) {
           </div>
         </div>
 
-        <div className="grid gap-4">
-          <div className="rounded-[28px] border border-slate-200 bg-[linear-gradient(135deg,#0f172a_0%,#111827_55%,#0f766e_140%)] p-6 text-white shadow-[0_28px_72px_rgba(15,23,42,0.18)]">
-            <div className="flex items-center justify-between gap-4">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-300">
-                  Live Overview
-                </p>
-                <p className="mt-2 text-sm text-slate-400">社区内容热度概览</p>
-              </div>
-              <div className="rounded-full border border-white/10 bg-white/10 px-2.5 py-1 text-xs text-slate-200">
-                实时
-              </div>
+        <div className="rounded-[28px] border border-slate-200 bg-[linear-gradient(135deg,#0f172a_0%,#111827_55%,#0f766e_140%)] p-6 text-white shadow-[0_28px_72px_rgba(15,23,42,0.18)]">
+          <div className="flex items-center justify-between gap-4">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-300">
+                Live Overview
+              </p>
+              <p className="mt-2 text-sm text-slate-400">社区内容热度概览</p>
             </div>
-
-            <div className="mt-5 space-y-4">
-              {pulseCards.map((card) => (
-                <motion.div
-                  key={card.title}
-                  whileHover={reduceMotion ? undefined : { y: -3 }}
-                  transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-                  className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm transition duration-200 hover:bg-white/[0.08]"
-                >
-                  <div className={`h-1.5 w-16 rounded-full bg-gradient-to-r ${card.tone}`} />
-                  <p className="mt-4 text-sm text-slate-300">{card.title}</p>
-                  <p className="mt-2 text-[24px] font-semibold tracking-[-0.03em] text-white">
-                    {card.value}
-                  </p>
-                  <p className="mt-1 text-xs text-slate-400">{card.meta}</p>
-                </motion.div>
-              ))}
+            <div className="rounded-full border border-white/10 bg-white/10 px-2.5 py-1 text-xs text-slate-200">
+              实时
             </div>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-1">
-            <Card className="p-5">
-              <p className="eyebrow">Why DarkSec</p>
-              <p className="mt-3 text-lg font-semibold tracking-[-0.03em] text-slate-950">
-                像产品一样组织内容，像社区一样连接开发者与项目。
-              </p>
-              <p className="mt-3 text-sm leading-7 text-slate-600">
-                让每一次项目更新、每一篇文章和每一位开发者都更容易被发现。
-              </p>
-            </Card>
+          <div className="mt-5 space-y-4">
+            {pulseCards.map((card) => (
+              <motion.div
+                key={card.title}
+                whileHover={reduceMotion ? undefined : { y: -3 }}
+                transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm transition duration-200 hover:bg-white/[0.08]"
+              >
+                <div className={`h-1.5 w-16 rounded-full bg-gradient-to-r ${card.tone}`} />
+                <p className="mt-4 text-sm text-slate-300">{card.title}</p>
+                <p className="mt-2 text-[24px] font-semibold tracking-[-0.03em] text-white">
+                  {card.value}
+                </p>
+                <p className="mt-1 text-xs text-slate-400">{card.meta}</p>
+              </motion.div>
+            ))}
+          </div>
 
-            <Card className="p-5">
-              <p className="text-sm text-slate-500">本周热门标签</p>
+          <div className="mt-5 rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-sm">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-300">
+              User Value
+            </p>
+            <div className="mt-4 space-y-4">
+              {valuePoints.map((item) => (
+                <div key={item.title}>
+                  <p className="text-sm font-medium text-white">{item.title}</p>
+                  <p className="mt-1 text-sm leading-6 text-slate-300">{item.description}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-5 border-t border-white/10 pt-4">
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-300">
+                Hot Tags
+              </p>
               <div className="mt-3 flex flex-wrap gap-2">
-                {["AI 工具", "设计系统", "开源组件", "协作工具"].map((tag) => (
-                  <Badge key={tag}>{tag}</Badge>
+                {hotTags.map((tag) => (
+                  <Badge
+                    key={tag}
+                    className="border-white/10 bg-white/10 text-slate-100 hover:border-white/20 hover:bg-white/15"
+                  >
+                    {tag}
+                  </Badge>
                 ))}
               </div>
-            </Card>
+            </div>
           </div>
         </div>
       </motion.div>
