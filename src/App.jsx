@@ -8,6 +8,7 @@ import HomePage from "./pages/HomePage";
 import ArticlesPage from "./pages/ArticlesPage";
 import ArticleDetailPage from "./pages/ArticleDetailPage";
 import CompetitionsPage from "./pages/CompetitionsPage";
+import CompetitionDetailPage from "./pages/CompetitionDetailPage";
 import ProjectsPage from "./pages/ProjectsPage";
 import ProjectDetailPage from "./pages/ProjectDetailPage";
 import PublishProjectPage from "./pages/PublishProjectPage";
@@ -92,6 +93,14 @@ export default function App() {
               element={
                 <ProtectedPage>
                   <CompetitionsPage />
+                </ProtectedPage>
+              }
+            />
+            <Route
+              path="/competitions/:competitionId"
+              element={
+                <ProtectedPage>
+                  <CompetitionDetailPage />
                 </ProtectedPage>
               }
             />

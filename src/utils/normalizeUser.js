@@ -1,8 +1,8 @@
 import { currentUserProfile } from "../data/mockUsers";
 
 function formatRole(roleCode) {
-  if (roleCode === "ADMIN") return "管理员";
-  if (roleCode === "TEACHER") return "教师";
+  if (roleCode === "ADMIN") return "绠＄悊鍛?;
+  if (roleCode === "TEACHER") return "鏁欏笀";
   return currentUserProfile.role;
 }
 
@@ -21,6 +21,7 @@ export function normalizeUserProfile(user) {
     phone: user.phone || currentUserProfile.phone,
     studentId: user.studentNo || currentUserProfile.studentId,
     studentNo: user.studentNo || currentUserProfile.studentNo,
+    inviteCode: user.inviteCode ?? currentUserProfile.inviteCode,
     roleCode: user.roleCode || currentUserProfile.roleCode,
     role: formatRole(user.roleCode),
   };

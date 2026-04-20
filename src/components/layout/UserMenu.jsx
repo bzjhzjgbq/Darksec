@@ -4,11 +4,11 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 
 const menuItems = [
-  { label: "个人中心", meta: "查看校园个人主页", to: "/user/profile" },
-  { label: "我的收藏", meta: "分类查看文章、项目和竞赛", to: "/user/favorites" },
-  { label: "好友", meta: "查看在线、离线与分组好友", to: "/user/friends" },
-  { label: "设置", meta: "账号、安全、通知与隐私", to: "/user/settings" },
-  { label: "切换账号", meta: "前往账号操作页面", to: "/user/auth" },
+  { label: "涓汉涓績", meta: "鏌ョ湅鏍″洯涓汉涓婚〉", to: "/user/profile" },
+  { label: "鎴戠殑鏀惰棌", meta: "鍒嗙被鏌ョ湅鏂囩珷銆侀」鐩拰绔炶禌", to: "/user/favorites" },
+  { label: "濂藉弸", meta: "鏌ョ湅鍦ㄧ嚎銆佺绾夸笌鍒嗙粍濂藉弸", to: "/user/friends" },
+  { label: "璁剧疆", meta: "璐﹀彿銆佸畨鍏ㄣ€侀€氱煡涓庨殣绉?, to: "/user/settings" },
+  { label: "鍒囨崲璐﹀彿", meta: "鍓嶅線璐﹀彿鎿嶄綔椤甸潰", to: "/user/auth" },
 ];
 
 export default function UserMenu({ user }) {
@@ -50,7 +50,7 @@ export default function UserMenu({ user }) {
       <button
         type="button"
         onClick={() => setOpen((current) => !current)}
-        className="group flex items-center gap-3 rounded-[22px] border border-slate-200 bg-white/92 px-2.5 py-2 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_10px_28px_rgba(15,23,42,0.05)] transition duration-200 hover:-translate-y-0.5 hover:border-slate-300"
+        className="group flex items-center gap-3 rounded-[22px] border border-white bg-white px-2.5 py-2 shadow-[0_1px_2px_rgba(15,23,42,0.08),0_12px_30px_rgba(15,23,42,0.12)] transition duration-200 hover:-translate-y-0.5 hover:border-slate-100"
       >
         <img
           src={user.avatar}
@@ -60,7 +60,7 @@ export default function UserMenu({ user }) {
         <div className="hidden min-w-0 text-left sm:block">
           <p className="truncate text-sm font-semibold text-slate-900">{user.nickname}</p>
           <p className="text-xs text-slate-500">
-            {user.levelTitle} · Lv.{user.level}
+            {user.levelTitle} 路 Lv.{user.level}
           </p>
         </div>
       </button>
@@ -95,7 +95,7 @@ export default function UserMenu({ user }) {
                   </p>
                   <p className="mt-1 text-sm text-slate-300">{user.bio}</p>
                   <p className="mt-2 text-xs text-slate-300">
-                    {user.college} · {user.major} · {user.grade}
+                    {user.college} 路 {user.major} 路 {user.grade}
                   </p>
                 </div>
               </div>
@@ -121,7 +121,7 @@ export default function UserMenu({ user }) {
                         </p>
                         <p className="mt-1 text-xs text-slate-500">{item.meta}</p>
                       </div>
-                      <span className="text-slate-400">›</span>
+                      <span className="text-slate-400">鈥?/span>
                     </>
                   )}
                 </NavLink>
@@ -134,10 +134,10 @@ export default function UserMenu({ user }) {
               className="mt-3 flex w-full items-center justify-between rounded-2xl border border-rose-200 bg-rose-50 px-3 py-3 text-left transition duration-200 hover:bg-rose-100"
             >
               <div>
-                <p className="text-sm font-medium text-rose-700">退出登录</p>
-                <p className="mt-1 text-xs text-rose-500">清除 token 并返回登录页</p>
+                <p className="text-sm font-medium text-rose-700">閫€鍑虹櫥褰?/p>
+                <p className="mt-1 text-xs text-rose-500">娓呴櫎 token 骞惰繑鍥炵櫥褰曢〉</p>
               </div>
-              <span className="text-rose-400">⎋</span>
+              <span className="text-rose-400">鈳?/span>
             </button>
           </motion.div>
         ) : null}

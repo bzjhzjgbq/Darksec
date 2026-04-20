@@ -1,84 +1,190 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import PageContainer from "../components/layout/PageContainer";
 import PageReveal from "../components/motion/PageReveal";
-import Reveal from "../components/motion/Reveal";
-import Badge from "../components/ui/Badge";
-import Button from "../components/ui/Button";
-import Card from "../components/ui/Card";
-import { competitionCategories, competitions } from "../data/mockCompetitions";
+import CompetitionFilterPanel from "../components/competition/CompetitionFilterPanel";
+import CompetitionList from "../components/competition/CompetitionList";
+import CompetitionResources from "../components/competition/CompetitionResources";
+import CompetitionSearchBar from "../components/competition/CompetitionSearchBar";
+import CompetitionTipsPanel from "../components/competition/CompetitionTipsPanel";
+import RecentCompetitions from "../components/competition/RecentCompetitions";
+import {
+  getCompetitionCatalog,
+  getCompetitionFilters,
+  getCompetitionResources,
+  getCompetitionTips,
+} from "../api/competitionApi";
+
+const defaultFilters = {
+  level: "鍏ㄩ儴",
+  category: "鍏ㄩ儴",
+  status: "鍏ㄩ儴",
+  audience: "鍏ㄩ儴",
+  source: "鍏ㄩ儴",
+};
+
+function sortByDeadline(items) {
+  return [...items].sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
+}
 
 export default function CompetitionsPage() {
-  const [category, setCategory] = useState("全部");
+  const [catalog, setCatalog] = useState([]);
+  const [filterGroups, setFilterGroups] = useState([]);
+  const [resources, setResources] = useState([]);
+  const [tips, setTips] = useState([]);
+  const [filters, setFilters] = useState(defaultFilters);
+  const [query, setQuery] = useState("");
+  const [highlightedId, setHighlightedId] = useState("");
+
+  useEffect(() => {
+    async function load() {
+      const [catalogData, filterData, resourceData, tipData] = await Promise.all([
+        getCompetitionCatalog(),
+        getCompetitionFilters(),
+        getCompetitionResources(),
+        getCompetitionTips(),
+      ]);
+
+      setCatalog(catalogData);
+      setFilterGroups(filterData);
+      setResources(resourceData);
+      setTips(tipData);
+    }
+
+    load();
+  }, []);
 
   const filteredCompetitions = useMemo(() => {
-    if (category === "全部") return competitions;
-    return competitions.filter((item) => item.category === category);
-  }, [category]);
+    return sortByDeadline(
+      catalog.filter((competition) => {
+        const queryText = query.trim().toLowerCase();
+        const matchesQuery =
+          !queryText ||
+          [
+            competition.title,
+            competition.organizer,
+            competition.department,
+            competition.summary,
+            competition.tags.join(" "),
+          ]
+            .join(" ")
+            .toLowerCase()
+            .includes(queryText);
+
+        const matchesLevel =
+          filters.level === "鍏ㄩ儴" || competition.level === filters.level;
+        const matchesCategory =
+          filters.category === "鍏ㄩ儴" || competition.category === filters.category;
+        const matchesStatus =
+          filters.status === "鍏ㄩ儴" || competition.status === filters.status;
+        const matchesAudience =
+          filters.audience === "鍏ㄩ儴" || competition.audience === filters.audience;
+        const matchesSource =
+          filters.source === "鍏ㄩ儴" || competition.sourceTags.includes(filters.source);
+
+        return (
+          matchesQuery &&
+          matchesLevel &&
+          matchesCategory &&
+          matchesStatus &&
+          matchesAudience &&
+          matchesSource
+        );
+      }),
+    );
+  }, [catalog, filters, query]);
+
+  const recentCompetitions = useMemo(() => {
+    return sortByDeadline(
+      catalog.filter((competition) =>
+        ["鎶ュ悕涓?, "鍗冲皢寮€濮?, "杩涜涓?].includes(competition.status),
+      ),
+    ).slice(0, 6);
+  }, [catalog]);
+
+  useEffect(() => {
+    if (!highlightedId) return;
+
+    const node = document.getElementById(`competition-${highlightedId}`);
+    if (!node) return;
+
+    node.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, [highlightedId, filteredCompetitions]);
+
+  function handleFilterChange(key, value) {
+    setFilters((current) => ({ ...current, [key]: value }));
+    setHighlightedId("");
+  }
+
+  function handleClearSearch() {
+    setQuery("");
+    setHighlightedId("");
+  }
+
+  function handleRecentSelect(competitionId) {
+    setFilters(defaultFilters);
+    setQuery("");
+    setHighlightedId(competitionId);
+  }
+
+  function getOptionCount(groupKey, option) {
+    if (option === "鍏ㄩ儴") {
+      return catalog.length;
+    }
+
+    return catalog.filter((competition) => {
+      if (groupKey === "source") {
+        return competition.sourceTags.includes(option);
+      }
+
+      return competition[groupKey] === option;
+    }).length;
+  }
 
   return (
     <PageReveal>
-      <PageContainer className="space-y-6">
-        <Reveal>
-          <Card strong className="px-6 py-8 sm:px-8">
-            <p className="eyebrow">竞赛专区</p>
-            <h1 className="mt-3 text-[38px] font-semibold tracking-[-0.05em] text-slate-950 sm:text-[46px]">
-              校园竞赛专区
-            </h1>
-            <p className="mt-4 max-w-3xl text-[16px] leading-8 text-slate-600">
-              聚合南京信息工程大学同学常见的学科竞赛、编程竞赛、创新创业与网络安全活动，方便查看时间、状态和组队方向。
-            </p>
-          </Card>
-        </Reveal>
-
-        <Reveal>
-          <div className="surface flex flex-wrap gap-2 p-4">
-            {competitionCategories.map((item) => (
-              <button
-                key={item}
-                type="button"
-                onClick={() => setCategory(item)}
-                className={`rounded-full px-4 py-2 text-sm font-medium transition duration-200 ${
-                  category === item
-                    ? "bg-slate-950 text-white"
-                    : "border border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:text-slate-900"
-                }`}
-              >
-                {item}
-              </button>
-            ))}
+      <section className="min-h-[calc(100vh-76px)] bg-[#161d1a] text-white">
+        <PageContainer className="grid gap-0 lg:grid-cols-[240px_minmax(0,1fr)_280px]">
+          <div className="hidden border-r border-[#2b3531] bg-[#141b18] lg:block">
+            <div className="competition-scrollbar sticky top-[76px] max-h-[calc(100vh-76px)] overflow-y-auto px-4 py-8">
+              <CompetitionFilterPanel
+                groups={filterGroups}
+                filters={filters}
+                onChange={handleFilterChange}
+                getOptionCount={getOptionCount}
+              />
+            </div>
           </div>
-        </Reveal>
 
-        <div className="grid gap-4">
-          {filteredCompetitions.map((item, index) => (
-            <Reveal key={item.id} delay={index * 0.03}>
-              <Card className="p-6">
-                <div className="flex flex-wrap items-center justify-between gap-3">
-                  <div>
-                    <div className="flex flex-wrap items-center gap-2">
-                      <Badge>{item.category}</Badge>
-                      <Badge>{item.status}</Badge>
-                    </div>
-                    <h2 className="mt-4 text-[24px] font-semibold tracking-[-0.03em] text-slate-950">
-                      {item.title}
-                    </h2>
-                  </div>
-                  <div className="text-sm text-slate-500">{item.time}</div>
-                </div>
-                <p className="mt-4 text-sm leading-7 text-slate-600">{item.summary}</p>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {item.tags.map((tag) => (
-                    <Badge key={tag}>{tag}</Badge>
-                  ))}
-                </div>
-                <div className="mt-5">
-                  <Button variant="secondary">查看详情</Button>
-                </div>
-              </Card>
-            </Reveal>
-          ))}
-        </div>
-      </PageContainer>
+          <div className="min-w-0 bg-[#181f1c] px-4 py-6 sm:px-6 lg:px-8">
+            <CompetitionSearchBar
+              query={query}
+              resultCount={filteredCompetitions.length}
+              onQueryChange={setQuery}
+              onClear={handleClearSearch}
+            />
+
+            <div className="border-b border-[#2b3531] py-4 text-sm text-[#93a59c]">
+              褰撳墠灞曠ず {filteredCompetitions.length} 椤圭珵璧涳紝鏀寔鎸夌骇鍒€佺被鍒€佺姸鎬併€侀潰鍚戝璞″拰鏉ユ簮绛涢€夈€?            </div>
+
+            <div className="bg-[#181f1c]">
+              <CompetitionList
+                competitions={filteredCompetitions}
+                highlightedId={highlightedId}
+              />
+            </div>
+          </div>
+
+          <div className="border-l border-[#2b3531] bg-[#171e1b] px-4 py-6 sm:px-5">
+            <RecentCompetitions competitions={recentCompetitions} onSelect={handleRecentSelect} />
+            <div className="mt-5">
+              <CompetitionTipsPanel tips={tips} />
+            </div>
+            <div className="mt-5 border-t border-[#31403a] pt-5">
+              <CompetitionResources resources={resources} />
+            </div>
+          </div>
+        </PageContainer>
+      </section>
     </PageReveal>
   );
 }
