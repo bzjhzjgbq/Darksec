@@ -69,6 +69,25 @@ a {
   text-decoration: none;
 }
 
+.competition-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #1d2522 #141b18;
+}
+
+.competition-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.competition-scrollbar::-webkit-scrollbar-track {
+  background: #141b18;
+}
+
+.competition-scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  border: 2px solid #141b18;
+  background: #1d2522;
+}
+
 * {
   box-sizing: border-box;
 }
