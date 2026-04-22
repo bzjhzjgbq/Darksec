@@ -4,10 +4,10 @@ import Button from "../ui/Button";
 import UserMenu from "./UserMenu";
 
 const navItems = [
-  { to: "/home", label: "棣栭〉" },
-  { to: "/articles", label: "鏂囩珷" },
-  { to: "/projects", label: "椤圭洰" },
-  { to: "/competitions", label: "绔炶禌" },
+  { to: "/home", label: "首页" },
+  { to: "/articles", label: "文章" },
+  { to: "/projects", label: "项目" },
+  { to: "/competitions", label: "竞赛" },
 ];
 
 function NavigationLink({ item, mobile = false, theme = "default" }) {
@@ -62,13 +62,13 @@ function CompetitionHeaderActions({ isLoggedIn, currentUser }) {
             to="/login"
             className="hidden h-10 items-center border border-[#3a4742] px-4 text-sm text-[#d5e1db] transition hover:border-[#688a7a] hover:text-white sm:inline-flex"
           >
-            鐧诲綍
+            登录
           </NavLink>
           <NavLink
             to="/register"
             className="hidden h-10 items-center bg-[#22302a] px-4 text-sm text-[#eef5f0] transition hover:bg-[#2b3933] sm:inline-flex"
           >
-            娉ㄥ唽
+            注册
           </NavLink>
         </>
       ) : null}
@@ -110,10 +110,10 @@ export default function MainNavbar({
           {!isLoggedIn ? (
             <>
               <NavLink to="/login" className="hidden sm:block">
-                <Button variant="secondary">鐧诲綍</Button>
+                <Button variant="secondary">登录</Button>
               </NavLink>
               <NavLink to="/register" className="hidden sm:block">
-                <Button>娉ㄥ唽</Button>
+                <Button>注册</Button>
               </NavLink>
             </>
           ) : null}
