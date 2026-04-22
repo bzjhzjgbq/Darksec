@@ -2,7 +2,7 @@ export default function RecentCompetitions({ competitions, onSelect }) {
   return (
     <section className="border-b border-[#2e3934] pb-5">
       <div className="border-b border-[#38443f] pb-3">
-        <p className="text-sm font-semibold text-[#eef5f0]">杩戞湡姣旇禌</p>
+        <p className="text-sm font-semibold text-[#eef5f0]">近期比赛</p>
       </div>
 
       <div className="mt-3 space-y-2">
@@ -15,7 +15,7 @@ export default function RecentCompetitions({ competitions, onSelect }) {
           >
             <span className="truncate text-sm text-[#cfdbd5]">{competition.title}</span>
             <span className="shrink-0 text-xs text-[#7f9489]">
-              {competition.status === "鎶ュ悕涓? ? "鎶ュ悕涓? : competition.periodLabel}
+              {competition.status === "报名中" ? "报名中" : competition.periodLabel}
             </span>
           </button>
         ))}
