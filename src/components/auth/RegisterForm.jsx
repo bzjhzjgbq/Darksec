@@ -28,23 +28,23 @@ export default function RegisterForm() {
 
   function validate() {
     if (form.nickname.trim().length < 2) {
-      return "鏄电О鑷冲皯闇€瑕?2 涓瓧绗︺€?;
+      return "昵称至少需要 2 个字符。";
     }
 
     if (!form.phone.trim() && !form.email.trim() && !form.studentNo.trim()) {
-      return "鎵嬫満鍙枫€侀偖绠辨垨瀛﹀彿鑷冲皯濉啓涓€椤广€?;
+      return "手机号、邮箱或学号至少填写一项。";
     }
 
     if (!form.inviteCode.trim()) {
-      return "璇疯緭鍏ラ個璇风爜銆?;
+      return "请输入邀请码。";
     }
 
     if (form.password.length < 8) {
-      return "瀵嗙爜鑷冲皯闇€瑕?8 浣嶃€?;
+      return "密码至少需要 8 位。";
     }
 
     if (form.password !== form.confirmPassword) {
-      return "涓ゆ杈撳叆鐨勫瘑鐮佷笉涓€鑷淬€?;
+      return "两次输入的密码不一致。";
     }
 
     return "";
@@ -71,7 +71,7 @@ export default function RegisterForm() {
       });
       navigate("/home", { replace: true });
     } catch (submitError) {
-      setError(submitError.message || "娉ㄥ唽澶辫触锛岃绋嶅悗鍐嶈瘯銆?);
+      setError(submitError.message || "注册失败，请稍后再试。");
     } finally {
       setLoading(false);
     }
@@ -84,35 +84,35 @@ export default function RegisterForm() {
         name="nickname"
         value={form.nickname}
         onChange={handleChange}
-        placeholder="鏄电О"
+        placeholder="昵称"
       />
       <input
         className="field"
         name="studentNo"
         value={form.studentNo}
         onChange={handleChange}
-        placeholder="瀛﹀彿锛堝彲閫夛級"
+        placeholder="学号（可选）"
       />
       <input
         className="field"
         name="phone"
         value={form.phone}
         onChange={handleChange}
-        placeholder="鎵嬫満鍙凤紙鍙€夛級"
+        placeholder="手机号（可选）"
       />
       <input
         className="field"
         name="email"
         value={form.email}
         onChange={handleChange}
-        placeholder="閭锛堝彲閫夛級"
+        placeholder="邮箱（可选）"
       />
       <input
         className="field"
         name="inviteCode"
         value={form.inviteCode}
         onChange={handleChange}
-        placeholder="閭€璇风爜锛堝繀濉級"
+        placeholder="邀请码（必填）"
       />
       <input
         className="field"
@@ -120,7 +120,7 @@ export default function RegisterForm() {
         name="password"
         value={form.password}
         onChange={handleChange}
-        placeholder="璁剧疆瀵嗙爜"
+        placeholder="设置密码"
       />
       <input
         className="field"
@@ -128,13 +128,13 @@ export default function RegisterForm() {
         name="confirmPassword"
         value={form.confirmPassword}
         onChange={handleChange}
-        placeholder="纭瀵嗙爜"
+        placeholder="确认密码"
       />
 
       {error ? <p className="text-sm text-rose-600">{error}</p> : null}
 
       <Button className="mt-2 w-full" type="submit" disabled={loading}>
-        {loading ? "姝ｅ湪娉ㄥ唽..." : "鍒涘缓璐﹀彿"}
+        {loading ? "正在注册..." : "创建账号"}
       </Button>
     </form>
   );
