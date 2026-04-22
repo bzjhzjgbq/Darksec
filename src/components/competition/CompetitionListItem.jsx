@@ -30,11 +30,11 @@ export default function CompetitionListItem({ competition, highlighted = false }
             </span>
             <span
               className={`rounded-full px-2.5 py-1 ${
-                competition.status === "鎶ュ悕涓?
+                competition.status === "报名中"
                   ? "bg-[#24392f] text-[#9bd1b4]"
-                  : competition.status === "杩涜涓?
+                  : competition.status === "进行中"
                     ? "bg-[#283333] text-[#a9c8c0]"
-                    : competition.status === "鍗冲皢寮€濮?
+                    : competition.status === "即将开始"
                       ? "bg-[#2b3327] text-[#c3cf9f]"
                       : "bg-[#262c29] text-[#8e9d96]"
               }`}
@@ -54,15 +54,15 @@ export default function CompetitionListItem({ competition, highlighted = false }
           to={`/competitions/${competition.id}`}
           className="rounded-full border border-[#405048] px-4 py-2 text-sm text-[#dce6e0] transition hover:border-[#688a7a] hover:text-white"
         >
-          鏌ョ湅璇︽儏
+          查看详情
         </Link>
       </div>
 
       <div className="mt-4 flex flex-wrap gap-x-8 gap-y-3 border-t border-[#27302d] pt-4">
-        <MetaItem label="璐熻矗閮ㄩ棬" value={competition.department} />
-        <MetaItem label="涓诲姙鍗曚綅" value={competition.organizer} />
-        <MetaItem label="闈㈠悜瀵硅薄" value={competition.audience} />
-        <MetaItem label="璧涚▼鎻愮ず" value={competition.periodLabel} />
+        <MetaItem label="负责部门" value={competition.department} />
+        <MetaItem label="主办单位" value={competition.organizer} />
+        <MetaItem label="面向对象" value={competition.audience} />
+        <MetaItem label="赛程提示" value={competition.periodLabel} />
       </div>
 
       <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
@@ -76,7 +76,7 @@ export default function CompetitionListItem({ competition, highlighted = false }
             </span>
           ))}
         </div>
-        <div className="text-xs text-[#6e8478]">鏉ユ簮锛歿competition.sourceTags.join(" / ")}</div>
+        <div className="text-xs text-[#6e8478]">来源：{competition.sourceTags.join(" / ")}</div>
       </div>
     </article>
   );
