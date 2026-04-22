@@ -7,10 +7,11 @@ export default function CompetitionFilterPanel({
   return (
     <aside className="h-full pr-6">
       <div className="border-b border-[#2c3632] pb-4">
-        <p className="text-[11px] uppercase tracking-[0.32em] text-[#6c8378]">绛涢€夋爮</p>
-        <h2 className="mt-2 text-lg font-semibold text-[#edf4ef]">绔炶禌缁村害</h2>
+        <p className="text-[11px] uppercase tracking-[0.32em] text-[#6c8378]">筛选栏</p>
+        <h2 className="mt-2 text-lg font-semibold text-[#edf4ef]">竞赛维度</h2>
         <p className="mt-2 text-sm leading-6 text-[#94a69e]">
-          閫氳繃绾у埆銆佺被鍒€佺姸鎬佸拰鏉ユ簮蹇€熷畾浣嶉€傚悎褰撳墠闃舵鐨勭珵璧涖€?        </p>
+          通过级别、类别、状态和来源快速定位适合当前阶段的竞赛。
+        </p>
       </div>
 
       <div className="competition-scrollbar mt-5 max-h-[calc(100vh-180px)] space-y-6 overflow-y-auto pb-4 pr-2">
