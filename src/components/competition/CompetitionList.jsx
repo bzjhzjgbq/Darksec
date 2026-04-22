@@ -4,7 +4,8 @@ export default function CompetitionList({ competitions, highlightedId }) {
   if (!competitions.length) {
     return (
       <div className="px-5 py-10 text-sm leading-7 text-[#94a69e]">
-        娌℃湁鎵惧埌绗﹀悎褰撳墠绛涢€夋潯浠剁殑绔炶禌銆傚彲浠ュ厛娓呯┖鎼滅储璇嶏紝鎴栨斁瀹界珵璧涚姸鎬併€佹潵婧愮瓑鏉′欢鍚庡啀鏌ョ湅銆?      </div>
+        没有找到符合当前筛选条件的竞赛。可以先清空搜索词，或放宽竞赛状态、来源等条件后再查看。
+      </div>
     );
   }
 
