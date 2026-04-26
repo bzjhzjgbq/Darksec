@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import BrandLogo from "./BrandLogo";
 import PageContainer from "./PageContainer";
 
 const footerLinks = [
@@ -14,13 +15,9 @@ export default function SiteFooter() {
       <PageContainer>
         <div className="border-t border-slate-200/80 pt-5 sm:pt-6">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-            <div className="flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-2xl border border-slate-200 bg-slate-950 text-xs font-semibold text-white shadow-sm">
-                DS
-              </div>
-              <div className="min-w-0">
-                <p className="text-sm font-semibold tracking-[-0.02em] text-slate-950">DarkSec</p>
-                <p className="text-xs text-slate-500">南京信息工程大学校园技术社区</p>
+            <div className="flex items-center">
+              <div className="flex h-11 items-center overflow-hidden rounded-2xl border border-slate-200 bg-white px-2.5 shadow-sm">
+                <BrandLogo className="h-7" />
               </div>
             </div>
 

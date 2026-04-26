@@ -1,8 +1,9 @@
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
+import BrandLogo from "./BrandLogo";
+import MainNavbar from "./MainNavbar";
 import PageContainer from "./PageContainer";
 import SiteFooter from "./SiteFooter";
-import MainNavbar from "./MainNavbar";
 
 export default function MainLayout() {
   const location = useLocation();
@@ -10,6 +11,7 @@ export default function MainLayout() {
   const isUserArea = location.pathname.startsWith("/user");
   const isCompetitionPage = location.pathname.startsWith("/competitions");
   const { isLoggedIn, currentUser } = useAuth();
+  const brandLink = isAuthPage ? "/" : "/home";
 
   return (
     <div className={isCompetitionPage ? "min-h-screen bg-[#161d1a]" : "min-h-screen"}>
@@ -21,31 +23,15 @@ export default function MainLayout() {
         }`}
       >
         <PageContainer className="flex flex-wrap items-center justify-between gap-6">
-          <NavLink to="/home" className="group flex min-w-0 items-center gap-3 py-3">
+          <NavLink to={brandLink} className="group py-3">
             <div
-              className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl border text-sm font-semibold transition duration-200 group-hover:-translate-y-0.5 ${
+              className={`flex h-12 items-center overflow-hidden rounded-2xl border px-2.5 transition duration-200 group-hover:-translate-y-0.5 ${
                 isCompetitionPage
-                  ? "border-[#34423d] bg-[#101613] text-[#edf4ef]"
-                  : "border-slate-200 bg-slate-950 text-white shadow-[0_1px_2px_rgba(15,23,42,0.08)]"
+                  ? "border-[#34423d] bg-[#101613]"
+                  : "border-slate-200 bg-white shadow-[0_1px_2px_rgba(15,23,42,0.08)]"
               }`}
             >
-              DS
-            </div>
-            <div className="min-w-0">
-              <p
-                className={`truncate text-[15px] font-semibold tracking-[-0.02em] ${
-                  isCompetitionPage ? "text-[#eef5f0]" : "text-slate-950"
-                }`}
-              >
-                DarkSec
-              </p>
-              <p
-                className={`truncate text-[11px] tracking-[0.22em] ${
-                  isCompetitionPage ? "text-[#80938a]" : "text-slate-500"
-                }`}
-              >
-                南京信息工程大学校园社区
-              </p>
+              <BrandLogo src="/darksec-logo-icon.png" className="h-8" />
             </div>
           </NavLink>
 
