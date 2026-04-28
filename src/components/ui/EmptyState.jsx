@@ -1,4 +1,4 @@
-export default function EmptyState({ eyebrow = "No Results", title, description }) {
+export default function EmptyState({ eyebrow = "暂无结果", title, description }) {
   return (
     <div className="empty-state">
       <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-emerald-100 bg-emerald-50 text-sm font-semibold text-emerald-700">

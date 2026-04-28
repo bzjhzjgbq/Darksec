@@ -91,18 +91,24 @@ export default function ProjectDetailContent({ project }) {
 
         <Section title="项目截图">
           <div className="grid gap-4 md:grid-cols-2">
-            {project.screenshots.map((image) => (
-              <img
-                key={image}
-                src={image}
-                alt={`${project.name} screenshot`}
-                className="h-60 w-full rounded-2xl border border-slate-200 object-cover"
-              />
-            ))}
+            {project.screenshots.length ? (
+              project.screenshots.map((image) => (
+                <img
+                  key={image}
+                  src={image}
+                  alt={`${project.name} 截图`}
+                  className="h-60 w-full rounded-2xl border border-slate-200 object-cover"
+                />
+              ))
+            ) : (
+              <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-6 text-sm text-slate-500">
+                当前还没有上传项目截图。
+              </div>
+            )}
           </div>
         </Section>
 
-        <Section title={`评论区 (${project.comments.length})`}>
+        <Section title={`评论区（${project.comments.length}）`}>
           <div className="space-y-4">
             {project.comments.length ? (
               project.comments.map((comment) => (
@@ -141,7 +147,7 @@ export default function ProjectDetailContent({ project }) {
 
       <aside className="space-y-4 xl:sticky xl:top-24 xl:self-start">
         <Card className="p-5">
-          <p className="eyebrow">Author</p>
+          <p className="eyebrow">作者信息</p>
           <div className="mt-4 flex items-start gap-3">
             <img
               src={project.author.avatar}
@@ -186,21 +192,6 @@ export default function ProjectDetailContent({ project }) {
             <a href={project.demo} target="_blank" rel="noreferrer">
               <Button className="w-full">在线 Demo</Button>
             </a>
-          </div>
-        </Card>
-
-        <Card className="p-5">
-          <h3 className="text-lg font-semibold tracking-[-0.02em] text-slate-950">互动操作</h3>
-          <div className="mt-4 grid gap-3">
-            <Button variant="secondary" className="w-full">
-              点赞项目
-            </Button>
-            <Button variant="secondary" className="w-full">
-              收藏项目
-            </Button>
-            <Button variant="secondary" className="w-full">
-              参与评论
-            </Button>
           </div>
         </Card>
       </aside>

@@ -42,7 +42,7 @@ export default function PublishProjectForm() {
     <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_280px]">
       <Card className="px-6 py-6 sm:px-7">
         <div className="border-b border-slate-100 pb-6">
-          <p className="eyebrow">Publish Project</p>
+          <p className="eyebrow">发布项目</p>
           <h1 className="mt-3 headline-lg">发布你的项目</h1>
           <p className="mt-3 body-md">
             当前为前端静态演示版本。你可以像在社区里发帖一样整理项目内容，提交后会展示成功反馈，但不会写入后端。
@@ -52,7 +52,7 @@ export default function PublishProjectForm() {
         <form className="mt-6 grid gap-5" onSubmit={handleSubmit}>
           <div className="grid gap-5 md:grid-cols-2">
             <label className="space-y-2">
-              <FieldLabel title="项目名称" hint="用清晰名称说明你的项目是什么" />
+              <FieldLabel title="项目名称" hint="用清晰名称说明你的项目是做什么的" />
               <input
                 name="name"
                 value={form.name}
@@ -111,7 +111,7 @@ export default function PublishProjectForm() {
           </label>
 
           <label className="space-y-2">
-            <FieldLabel title="完整介绍" hint="介绍背景、目标用户、当前进展和使用场景" />
+            <FieldLabel title="完整介绍" hint="介绍背景、目标用户、当前进度和使用场景" />
             <textarea
               name="content"
               value={form.content}
@@ -159,7 +159,7 @@ export default function PublishProjectForm() {
           </div>
 
           <div className="flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 pt-5">
-            <p className="text-xs text-slate-500">当前为静态演示提交流程，不会真实保存到服务端。</p>
+            <p className="text-xs text-slate-500">当前为静态提交流程演示，不会真实写入后端。</p>
             <Button type="submit">提交项目</Button>
           </div>
         </form>

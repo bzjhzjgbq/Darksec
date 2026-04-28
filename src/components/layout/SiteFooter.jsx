@@ -1,19 +1,16 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import PageContainer from "./PageContainer";
 
 const footerLinks = [
-  { label: "首页", to: "/" },
-  { label: "项目", to: "/projects" },
+  { label: "首页", to: "/home" },
   { label: "文章", to: "/articles" },
-  { label: "个人主页", to: "/user" },
+  { label: "项目", to: "/projects" },
+  { label: "竞赛", to: "/competitions" },
 ];
 
 export default function SiteFooter() {
-  const location = useLocation();
-  const isHome = location.pathname === "/";
-
   return (
-    <footer className={isHome ? "pb-8 pt-2" : "pb-6 pt-1"}>
+    <footer className="pb-6 pt-1">
       <PageContainer>
         <div className="border-t border-slate-200/80 pt-5 sm:pt-6">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
@@ -23,7 +20,7 @@ export default function SiteFooter() {
               </div>
               <div className="min-w-0">
                 <p className="text-sm font-semibold tracking-[-0.02em] text-slate-950">DarkSec</p>
-                <p className="text-xs text-slate-500">Developer community platform</p>
+                <p className="text-xs text-slate-500">南京信息工程大学校园技术社区</p>
               </div>
             </div>
 
@@ -41,8 +38,8 @@ export default function SiteFooter() {
           </div>
 
           <div className="mt-4 flex flex-col gap-2 border-t border-slate-100 pt-4 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
-            <p>© 2026 DarkSec. All rights reserved.</p>
-            <p>Built with React, Vite and Tailwind CSS.</p>
+            <p>© 2026 DarkSec · 南京信息工程大学校园社区原型</p>
+            <p>校园技术交流 / 项目合作 / 竞赛实践 / 文章沉淀</p>
           </div>
         </div>
       </PageContainer>

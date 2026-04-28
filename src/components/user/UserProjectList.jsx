@@ -6,19 +6,17 @@ export default function UserProjectList({ projects, title = "我的项目" }) {
     return (
       <EmptyState
         eyebrow="Projects"
-        title="还没有公开项目"
-        description="这里会展示当前开发者已发布的项目，包括状态、分类与简要介绍。"
+        title="还没有项目记录"
+        description="这里会展示你的课程作品、练习项目和竞赛页面。"
       />
     );
   }
 
   return (
     <section className="surface p-5">
-      <div className="flex items-center justify-between gap-4">
-        <div>
-          <p className="eyebrow">Projects</p>
-          <h3 className="mt-2 text-lg font-semibold tracking-[-0.02em] text-slate-950">{title}</h3>
-        </div>
+      <div>
+        <p className="eyebrow">Projects</p>
+        <h3 className="mt-2 text-lg font-semibold tracking-[-0.02em] text-slate-950">{title}</h3>
       </div>
       <div className="mt-4 space-y-3">
         {projects.map((project) => (

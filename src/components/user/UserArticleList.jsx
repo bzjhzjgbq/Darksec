@@ -5,9 +5,9 @@ export default function UserArticleList({ articles }) {
   if (!articles.length) {
     return (
       <EmptyState
-        eyebrow="Articles"
-        title="还没有发布文章"
-        description="当前用户的文章列表会在这里展示，包含技术沉淀、实践总结和社区思考。"
+        eyebrow="Learning Notes"
+        title="还没有学习日志"
+        description="你的课程复盘、技术笔记和竞赛总结会展示在这里。"
       />
     );
   }

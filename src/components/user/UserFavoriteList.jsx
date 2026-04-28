@@ -7,7 +7,7 @@ export default function UserFavoriteList({ articles, projects }) {
       <EmptyState
         eyebrow="Collections"
         title="还没有收藏记录"
-        description="这里会统一展示文章收藏与项目收藏，方便回看感兴趣的内容。"
+        description="你收藏的文章、项目和灵感会统一整理在这里。"
       />
     );
   }
@@ -15,7 +15,7 @@ export default function UserFavoriteList({ articles, projects }) {
   return (
     <section className="surface p-5">
       <p className="eyebrow">Collections</p>
-      <h3 className="mt-2 text-lg font-semibold tracking-[-0.02em] text-slate-950">收藏记录</h3>
+      <h3 className="mt-2 text-lg font-semibold tracking-[-0.02em] text-slate-950">我的收藏</h3>
 
       <div className="mt-4 space-y-4">
         <div>
